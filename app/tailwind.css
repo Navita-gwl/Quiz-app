@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --color-primary-50: #f8fafc;
+  --color-primary-100: #f1f5f9;
+  --color-primary-200: #e2e8f0;
+  --color-primary-300: #cbd5e1;
+  --color-primary-400: #94a3b8;
+  --color-primary-500: #64748b;
+  --color-primary-650: #475569;
+  --color-primary-800: #1e293b;
+  --color-primary-900: #0f172a;
+  
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+
+  --shadow-premium-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-premium-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-premium-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-premium-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@layer base {
+  html {
+    /* Scale all rem-based Tailwind font sizes up ~42%: 12px → 17px, 14px → 20px, 16px → 23px */
+    font-size: 106.25%;
+  }
+
+  body {
+    background-color: #f8fafc;
+    font-family: var(--font-sans);
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Make sure all Shopify custom elements are block level & span full width */
+  s-stack,
+  s-card,
+  s-section,
+  s-page,
+  s-data-table {
+    display: revert;
+    width: 100%;
+  }
+
+  s-stack[direction="inline"] {
+    display: flex;
+    flex-direction: row;
+  }
+
+  button,
+  s-button,
+  input[type="button"],
+  input[type="submit"],
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  /* Custom styling for Shopify components where possible */
+  s-card {
+    display: block;
+    background: white;
+    border: 1px solid #f1f5f9;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-premium-sm);
+  }
+
+  s-button {
+    font-family: var(--font-sans);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  s-button[variant="primary"] {
+    background: #4f46e5;
+    color: white;
+  }
+
+  s-button[variant="primary"]:hover {
+    background: #4338ca;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  }
+
+  s-button[variant="secondary"] {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+  }
+
+  s-button[variant="secondary"]:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+
+  /* Text inputs custom styles */
+  s-text-field {
+    width: 100%;
+    display: block;
+  }
+
+  s-text-field input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    font-size: 17px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    background: white;
+    box-shadow: var(--shadow-premium-sm);
+  }
+
+  s-text-field input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  }
+
+  s-text-field input::placeholder {
+    color: #94a3b8;
+  }
+}
+
+/* Override arbitrary small px font-size utility classes used throughout the app */
+/* These don't scale with rem, so we explicitly bump them up proportionally */
+.text-\[9px\]    { font-size: 13px !important; }
+.text-\[10px\]   { font-size: 14px !important; }
+.text-\[11px\]   { font-size: 15px !important; }
+.text-\[13px\]   { font-size: 18px !important; }
+.text-\[13\.5px\]{ font-size: 19px !important; }
+.text-\[14px\]   { font-size: 19px !important; }
+.text-\[15px\]   { font-size: 21px !important; }
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

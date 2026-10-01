@@ -1,0 +1,7 @@
+api_version = "2026-04"
+
+[[extensions]]
+name = "Quiz Extension"
+handle = "quiz-extension"
+uid = "b6016489-d6cc-6294-c433-7d790d37c62878a8dbb2"
+type = "theme_app_extension"

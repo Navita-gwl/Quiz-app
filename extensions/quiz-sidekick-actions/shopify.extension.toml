@@ -1,0 +1,17 @@
+uid = "6df2186f-bc52-9db8-bab3-87e60278624588f6fa4b"
+[[extensions]]
+name = "QuizInsights Sidekick Actions"
+handle = "quiz-sidekick-actions"
+type = "admin_link"
+description = "Open a QuizInsights product discovery quiz in the quiz customizer to review or edit quiz design and settings"
+
+[[extensions.targeting]]
+target = "admin.app.intent.link"
+url = "/app/quizzes/{id}/customize"
+tools = "./tools.json"
+instructions = "./instructions.md"
+
+[[extensions.targeting.intents]]
+type = "application/campaign"
+action = "edit"
+schema = "./quiz-schema.json"

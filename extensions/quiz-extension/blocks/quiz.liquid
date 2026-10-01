@@ -1,0 +1,68 @@
+{% schema %}
+{
+  "name": "Quiz",
+  "target": "section",
+  "javascript": "quiz-loader.js",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_id",
+      "label": "Quiz ID",
+      "placeholder": "Enter Quiz ID (e.g., a4f9c2d1)"
+    }
+  ]
+}
+{% endschema %}
+
+<div 
+  id="gwl-quiz-{{ block.settings.quiz_id | default: 'unset' }}"
+  class="gwl-quiz-container" 
+  data-shop-domain="{{ shop.permanent_domain }}" 
+  data-customer-id="{{ customer.id }}"
+  data-quiz-id="{{ block.settings.quiz_id }}"
+  data-app-proxy-url="/apps/quizapp"
+  data-quiz-js-url="{{ 'quiz.js' | asset_url }}"
+  data-quiz-css-url="{{ 'quiz.css' | asset_url }}"
+  data-block-id="{{ block.id }}"
+>
+  {%- comment -%}
+    Markup below is kept in sync with app/routes/embed.quiz.tsx (Hydrogen iframe embed).
+    Both surfaces load the same quiz.css + quiz.js styling engine.
+  {%- endcomment -%}
+  <div class="gwl-quiz-loading">Loading quiz...</div>
+  <div class="gwl-quiz-error" style="display: none; color: red;"></div>
+
+  <!-- Lead Form -->
+  <div class="gwl-quiz-registration-form" style="display: none;">
+    <div class="gwl-quiz-header">
+      <h2 class="gwl-quiz-heading"></h2>
+      <h4 class="gwl-quiz-subheading"></h4>
+    </div>
+    <div class="gwl-quiz-form-group">
+      {%- assign lead_field_scope = block.settings.quiz_id | default: block.id -%}
+      <label for="gwl-quiz-lead-name-{{ lead_field_scope }}">Name</label>
+      <input type="text" id="gwl-quiz-lead-name-{{ lead_field_scope }}" class="gwl-quiz-input gwl-quiz-input-name" required placeholder="Your Name">
+    </div>
+    <div class="gwl-quiz-form-group">
+      <label for="gwl-quiz-lead-email-{{ lead_field_scope }}">Email</label>
+      <input type="email" id="gwl-quiz-lead-email-{{ lead_field_scope }}" class="gwl-quiz-input gwl-quiz-input-email" required placeholder="your@email.com">
+    </div>
+    <button type="button" class="gwl-quiz-submit-btn gwl-quiz-start-btn">Start Quiz</button>
+  </div>
+  
+  <form class="gwl-quiz-form" style="display: none;">
+    <div class="gwl-quiz-questions"></div>
+    <button type="submit" class="gwl-quiz-submit-btn">Submit Answers</button>
+  </form>
+
+  <div class="gwl-quiz-results" style="display: none;">
+    <div class="gwl-quiz-results-header">
+      <div class="gwl-quiz-results-text">
+        <h3 class="gwl-quiz-heading"></h3>
+        <p class="gwl-quiz-subheading"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gwl-quiz-recommendations" style="display: none;"></div>
+</div>

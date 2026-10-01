@@ -1,0 +1,7 @@
+name = "React Router"
+roles = ["frontend", "backend"]
+webhooks_path = "/webhooks/app/uninstalled"
+
+[commands]
+predev = "npx prisma generate && cp public/quiz.js public/quiz.css extensions/quiz-extension/assets/"
+dev = "npx prisma migrate deploy && npm exec react-router dev"

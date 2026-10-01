@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id                  String    @id
+  shop                String
+  state               String
+  isOnline            Boolean   @default(false)
+  scope               String?
+  expires             DateTime?
+  accessToken         String
+  userId              BigInt?
+  firstName           String?
+  lastName            String?
+  email               String?
+  accountOwner        Boolean   @default(false)
+  locale              String?
+  collaborator        Boolean?  @default(false)
+  emailVerified       Boolean?  @default(false)
+  refreshToken        String?
+  refreshTokenExpires DateTime?
+}
+
+model Category {
+  id                 String           @id @default(uuid())
+  shopId             String
+  title              String
+  handle             String
+  quizPublicId       String           @unique
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  questions          Question[]
+  submissions        QuizSubmission[]
+  settings           Json?
+
+  @@unique([shopId, handle])
+}
+
+model Question {
+  id                   String       @id @default(uuid())
+  shopId               String
+  categoryId           String?
+  text                 String
+  description          String?      @db.Text
+  productSelectionType String       @default("single")
+  type                 QuestionType
+  options              Json
+  optionType           String       @default("text")
+  position             Int          @default(0)
+  createdAt            DateTime     @default(now())
+  answers              Answer[]
+  category             Category?    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model QuizSubmission {
+  id              String    @id @default(uuid())
+  shopId          String
+  categoryId      String?
+  name            String
+  email           String
+  recommendations Json?
+  createdAt       DateTime  @default(now())
+  answers         Answer[]
+  category        Category? @relation(fields: [categoryId], references: [id])
+}
+
+model Answer {
+  id           String         @id @default(uuid())
+  shopId       String
+  questionId   String?
+  questionText String?
+  submissionId String
+  customerId   String?
+  answer       Json
+  createdAt    DateTime       @default(now())
+  question     Question?      @relation(fields: [questionId], references: [id])
+  submission   QuizSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+}
+
+model QuizSettings {
+  id                    String   @id @default(uuid())
+  shopId                String   @unique
+  optionDisplayStyle    String   @default("default")
+  layoutDirection       String   @default("vertical")
+  imageSize             String   @default("medium")
+  borderRadius          String   @default("medium")
+  primaryColor          String   @default("#111827")
+  showQuestionNumbers   Boolean  @default(true)
+  showProgressBar       Boolean  @default(true)
+  autoScrollToNext      Boolean  @default(false)
+  submitButtonText      String   @default("Submit Answers")
+  formHeading           String   @default("Take our Quiz!")
+  formSubheading        String   @default("Please enter your details to start")
+  showNameField         Boolean  @default(true)
+  showEmailField        Boolean  @default(true)
+  startButtonText       String   @default("Start Quiz")
+  formLayoutStyle       String   @default("centered")
+  formBackgroundStyle   String   @default("white")
+  inputFieldStyle       String   @default("rounded")
+  formBackgroundColor   String   @default("#ffffff")
+  formTextColor         String   @default("#111111")
+  inputBorderColor      String   @default("#dcdcdc")
+  inputFocusColor       String   @default("#111827")
+  startButtonBgColor    String   @default("#000000")
+  startButtonTextColor  String   @default("#ffffff")
+  formWidth             String   @default("full")
+  buttonStyle           String   @default("solid")
+  quizDisplayMode       String   @default("step")
+  showBackButton        Boolean  @default(true)
+  progressStyle         String   @default("line")
+  contentAlignment      String   @default("left")
+  maxSelections         Int      @default(0)
+  formPrimaryColor      String   @default("#111827")
+  formBorderRadius      String   @default("medium")
+  formButtonStyle       String   @default("solid")
+  formContentAlignment  String   @default("left")
+  formOuterBorderRadius String   @default("medium")
+  quizBackgroundColor   String   @default("#ffffff")
+  quizTextColor         String   @default("#111111")
+  quizPrimaryColor      String   @default("#111827")
+  quizBorderRadius      String   @default("medium")
+  quizContentAlignment  String   @default("left")
+  quizWidth             String   @default("full")
+  quizOuterBorderRadius String   @default("medium")
+  thankYouHeading       String   @default("Thank you for your answers!")
+  thankYouBody          String   @default("We will get back to you")
+  thankYouColor         String   @default("#008060")
+  submitButtonBgColor      String   @default("#000000")
+  customCss                String?  @default("")
+  customJs                 String?  @default("")
+  embedUrl                 String?
+  hydrogenQuizId           String?
+  registrationFormPosition String   @default("before_quiz")
+  optionsPerRow            String   @default("1")
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+}
+
+enum QuestionType {
+  RADIO
+  CHECKBOX
+  DROPDOWN
+  DROPDOWN_MULTI
+}
+
+model PlanSubscription {
+  id             String   @id @default(uuid())
+  shop           String   @unique
+  plan           String
+  subscriptionId String?
+  status         String
+  pendingPlan    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+

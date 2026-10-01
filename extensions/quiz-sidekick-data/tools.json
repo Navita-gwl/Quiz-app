@@ -1,0 +1,82 @@
+[
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "search_quizzes",
+    "description": "Search product discovery quizzes by title and list quiz IDs, public IDs, question counts, and response counts",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Optional text to match against quiz titles"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of quizzes to return (1-25, default 10)"
+        }
+      }
+    }
+  },
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "search_quiz_responses",
+    "description": "Search customer quiz submissions by name, email, quiz, or date range",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "description": "Customer name or email to search for"
+        },
+        "quizId": {
+          "type": "string",
+          "description": "Internal quiz ID to filter responses for one quiz"
+        },
+        "datePreset": {
+          "type": "string",
+          "enum": ["all", "today", "yesterday", "last_7_days", "last_30_days", "custom"],
+          "description": "Preset date range for submissions"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date",
+          "description": "Custom range start date (YYYY-MM-DD) when datePreset is custom"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date",
+          "description": "Custom range end date (YYYY-MM-DD) when datePreset is custom"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of responses to return (1-25, default 10)"
+        }
+      }
+    }
+  },
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "get_quiz_analytics",
+    "description": "Get quiz performance analytics including total responses, active quizzes, average responses per quiz, and top performing quiz",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "datePreset": {
+          "type": "string",
+          "enum": ["all", "today", "yesterday", "last_7_days", "last_30_days", "custom"],
+          "description": "Date range preset for analytics"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date",
+          "description": "Custom analytics start date (YYYY-MM-DD)"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date",
+          "description": "Custom analytics end date (YYYY-MM-DD)"
+        }
+      }
+    }
+  }
+]

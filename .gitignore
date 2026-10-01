@@ -1,0 +1,47 @@
+# dependencies
+node_modules/
+
+# build output
+build/
+dist/
+.cache/
+
+# Remix / Vite / tooling
+.vite/
+.eslintcache
+*.tsbuildinfo
+
+# logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# local environment files
+.env
+.env.*
+!.env.example
+
+# local databases and generated data
+*.sqlite
+*.sqlite-journal
+*.db
+prisma/dev.sqlite
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Agent skills (installed via npx skills add)
+.agents/
+
+skills-lock.json
+
+# Shopify CLI local config/state
+.shopify/
+
+# Ignore all environment-specific Shopify configs
+shopify.app.*.toml

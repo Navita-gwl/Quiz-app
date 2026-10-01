@@ -1,0 +1,11 @@
+[
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "summarize_open_quiz",
+    "description": "Summarize the quiz title, question count, and recent response count for the quiz currently open in the customizer",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+]

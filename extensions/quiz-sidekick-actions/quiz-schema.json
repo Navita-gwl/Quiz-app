@@ -1,0 +1,14 @@
+{
+  "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/intent.json",
+  "value": {
+    "type": "string",
+    "description": "The QuizInsights quiz campaign ID to open in the customizer.",
+    "mapTo": "param",
+    "fieldName": "id"
+  },
+  "inputSchema": {
+    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/campaign.json",
+    "type": "object",
+    "properties": {}
+  }
+}

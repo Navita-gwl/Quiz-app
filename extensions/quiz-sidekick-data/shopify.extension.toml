@@ -1,0 +1,14 @@
+api_version = "2026-04"
+uid = "84812fcd-8ded-be6e-bcdd-5624fc0bd69e44bef985"
+
+[[extensions]]
+name = "QuizInsights Sidekick Data"
+handle = "quiz-sidekick-data"
+type = "ui_extension"
+description = "Search QuizInsights quizzes, customer quiz responses, and quiz performance analytics for product discovery flows"
+
+[[extensions.targeting]]
+module = "./src/index.js"
+target = "admin.app.tools.data"
+tools = "./tools.json"
+instructions = "./instructions.md"
